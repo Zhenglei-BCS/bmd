@@ -2,10 +2,20 @@
 % Please edit documentation in R/print.drcHetVar.R
 \name{print.drcHetVar}
 \alias{print.drcHetVar}
-\title{S3 method}
+\title{Print Method for drcHetVar Objects}
 \usage{
 \method{print}{drcHetVar}(x, ..., digits = max(3, getOption("digits") - 3))
 }
+\arguments{
+\item{x}{A drcHetVar model object}
+
+\item{...}{Additional arguments (not used)}
+
+\item{digits}{Number of significant digits to use for printing values}
+}
+\value{
+Invisibly returns the x object
+}
 \description{
-S3 method
+Prints a summary of a drcHetVar model object.
 }
