@@ -2,10 +2,34 @@
 % Please edit documentation in R/BCa.R
 \name{BCa}
 \alias{BCa}
-\title{Help funtion to bmdBoot}
+\title{Calculate BCa (Bias-Corrected and Accelerated) Bootstrap Confidence Interval}
 \usage{
 BCa(obs, data, bootSample, bootjack, level)
 }
+\arguments{
+\item{obs}{Observed value of the statistic (scalar)}
+
+\item{data}{Original dataset (data frame or matrix)}
+
+\item{bootSample}{Vector of bootstrap replicates of the statistic (length = R)}
+
+\item{bootjack}{Vector of jackknife replicates of the statistic (length = n)}
+
+\item{level}{Confidence level (e.g., 0.95 for 95% confidence interval)}
+}
+\value{
+A numeric vector of length 2 containing the lower and upper confidence limits.
+}
 \description{
-Help funtion to bmdBoot
+Computes the BCa confidence interval for a statistic using bootstrap and jackknife estimates.
+The BCa method adjusts for both bias and skewness in the bootstrap distribution.
+}
+\details{
+The BCa method combines:
+  - Bias correction (z0) based on the proportion of bootstrap replicates below the observed value
+  - Acceleration (a) estimated from jackknife influence values
+  - Normal quantiles adjusted for bias and acceleration
+}
+\references{
+Efron, B. (1987). Better Bootstrap Confidence Intervals. *Journal of the American Statistical Association*, 82(397), 171-185.
 }
