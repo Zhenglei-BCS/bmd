@@ -2,10 +2,22 @@
 % Please edit documentation in R/drmMMRE.R
 \name{vcov.drcMMRE}
 \alias{vcov.drcMMRE}
-\title{S3 method}
+\title{Extract Variance-Covariance Matrix from drcMMRE Objects}
 \usage{
 \method{vcov}{drcMMRE}(object, ...)
 }
+\arguments{
+\item{object}{An object of class "drcMMRE"}
+
+\item{...}{Additional arguments (currently unused)}
+}
+\value{
+The variance-covariance matrix of the model parameters.
+}
 \description{
-S3 method
+S3 method to extract the variance-covariance matrix from fitted drcMMRE objects
+by delegating to the underlying model-averaged model.
+}
+\seealso{
+\code{\link{vcov}} for the generic function
 }

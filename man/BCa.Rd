@@ -35,23 +35,25 @@ provides better coverage than standard bootstrap confidence intervals.
 The BCa method computes confidence intervals using three components:
 
 1. Bias correction (z0):
-#$# z_0 = \Phi^{-1}(\frac{\#\{\theta^*(b) \leq \hat{\theta}\}}{B}) #$#
-where B is the number of bootstrap replicates.
+\deqn{z_0 = \Phi^{-1}\left(\frac{\text{number of } \theta^*_b \leq \hat{\theta}}{B}\right)}{z_0 = qnorm(proportion of bootstrap samples <= observed value)}
+where B is the number of bootstrap replicates and \eqn{\theta^*_b}{theta*_b} represents the b-th bootstrap replicate.
 
 2. Acceleration (a):
-#$# a = \frac{\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^3}{6[\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^2]^{3/2}} #$#
-where θ_(i) are the jackknife values.
+\deqn{a = \frac{\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^3}{6[\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^2]^{3/2}}}{a = sum((theta-bar - theta_i)^3) / (6 * [sum((theta-bar - theta_i)^2)]^(3/2))}
+where \eqn{\theta_{(i)}}{theta_i} are the jackknife values.
 
 3. The confidence limits are then computed as:
-#$# \alpha_{1,2} = \Phi(z_0 + \frac{z_0 \pm z_{\alpha}}{1 - a(z_0 \pm z_{\alpha})}) #$#
+\deqn{\alpha_{1,2} = \Phi\left(z_0 + \frac{z_0 \pm z_{\alpha}}{1 - a(z_0 \pm z_{\alpha})}\right)}{alpha_(1,2) = Phi(z_0 + (z_0 +/- z_alpha)/(1 - a*(z_0 +/- z_alpha)))}
 }
 \section{Warning}{
 
 The function assumes that:
-- The bootstrap samples are independent
-- The statistic of interest is smooth (continuously differentiable)
-- There are sufficient bootstrap replicates (typically >1000)
-- The jackknife values are properly computed
+\itemize{
+  \item The bootstrap samples are independent
+  \item The statistic of interest is smooth (continuously differentiable)
+  \item There are sufficient bootstrap replicates (typically >1000)
+  \item The jackknife values are properly computed
+}
 }
 
 \examples{
@@ -75,10 +77,10 @@ BCa(obs_mean, data, boot_means, jack_means, 0.95)
 }
 \references{
 Efron, B. (1987). Better Bootstrap Confidence Intervals. 
-*Journal of the American Statistical Association*, 82(397), 171-185.
+\emph{Journal of the American Statistical Association}, 82(397), 171-185.
 
 DiCiccio, T. J., & Efron, B. (1996). Bootstrap confidence intervals.
-*Statistical Science*, 11(3), 189-212.
+\emph{Statistical Science}, 11(3), 189-212.
 }
 \seealso{
 \code{\link{quantile}} for the underlying quantile computation

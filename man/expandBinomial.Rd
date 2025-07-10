@@ -33,12 +33,6 @@ lower limit of the corresponding 95\% confidence interval (BMDL) for
 continuous and quantal dose-response data for a range of dose-response
 models based on the available definitions of the benchmark dose concepts.
 }
-\examples{
-\dontrun{
-}
- 
-
-}
 \author{
 Signe M. Jensen and Jens Riis Baalkilde
 }

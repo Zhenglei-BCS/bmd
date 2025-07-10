@@ -160,7 +160,20 @@ drmMMRE <- function(formula, exp_id, data, fct, type = c("continuous", "binomial
   object
 }
 
-#' @title S3 method
+#' Extract Variance-Covariance Matrix from drcMMRE Objects
+#'
+#' @description
+#' S3 method to extract the variance-covariance matrix from fitted drcMMRE objects
+#' by delegating to the underlying model-averaged model.
+#'
+#' @param object An object of class "drcMMRE"
+#' @param ... Additional arguments (currently unused)
+#'
+#' @return The variance-covariance matrix of the model parameters.
+#'
+#' @seealso \code{\link{vcov}} for the generic function
+#'
+#' @method vcov drcMMRE
 #' @export
 vcov.drcMMRE <- function(object, ...){
   vcov(object$MV_MA_model)

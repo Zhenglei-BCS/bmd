@@ -19,10 +19,6 @@
 #' @return data.frame
 #' @author Signe M. Jensen and Jens Riis Baalkilde
 #' @keywords models nonlinear
-#' @examples \dontrun{
-#' }
-#'  
-#' 
 expandBinomial <- function(data, number, total, dose, curveid = character(0)){
   if(length(curveid) == 0){
     df<-data.frame(number = c(rep(rep(1,length(data[,number])), data[,number]),

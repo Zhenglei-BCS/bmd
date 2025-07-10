@@ -1,6 +1,5 @@
 #' Calculate BCa (Bias-Corrected and Accelerated) Bootstrap Confidence Interval
 #'
-#' @description
 #' Computes the BCa confidence interval for a statistic using bootstrap and jackknife estimates.
 #' The BCa method adjusts for both bias and skewness in the bootstrap distribution and generally
 #' provides better coverage than standard bootstrap confidence intervals.
@@ -23,22 +22,24 @@
 #' The BCa method computes confidence intervals using three components:
 #' 
 #' 1. Bias correction (z0):
-#' #$# z_0 = \Phi^{-1}(\frac{\#\{\theta^*(b) \leq \hat{\theta}\}}{B}) #$#
-#' where B is the number of bootstrap replicates.
+#' \deqn{z_0 = \Phi^{-1}\left(\frac{\text{number of } \theta^*_b \leq \hat{\theta}}{B}\right)}{z_0 = qnorm(proportion of bootstrap samples <= observed value)}
+#' where B is the number of bootstrap replicates and \eqn{\theta^*_b}{theta*_b} represents the b-th bootstrap replicate.
 #'
 #' 2. Acceleration (a):
-#' #$# a = \frac{\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^3}{6[\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^2]^{3/2}} #$#
-#' where θ_(i) are the jackknife values.
+#' \deqn{a = \frac{\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^3}{6[\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^2]^{3/2}}}{a = sum((theta-bar - theta_i)^3) / (6 * [sum((theta-bar - theta_i)^2)]^(3/2))}
+#' where \eqn{\theta_{(i)}}{theta_i} are the jackknife values.
 #'
 #' 3. The confidence limits are then computed as:
-#' #$# \alpha_{1,2} = \Phi(z_0 + \frac{z_0 \pm z_{\alpha}}{1 - a(z_0 \pm z_{\alpha})}) #$#
+#' \deqn{\alpha_{1,2} = \Phi\left(z_0 + \frac{z_0 \pm z_{\alpha}}{1 - a(z_0 \pm z_{\alpha})}\right)}{alpha_(1,2) = Phi(z_0 + (z_0 +/- z_alpha)/(1 - a*(z_0 +/- z_alpha)))}
 #'
 #' @section Warning:
 #' The function assumes that:
-#' - The bootstrap samples are independent
-#' - The statistic of interest is smooth (continuously differentiable)
-#' - There are sufficient bootstrap replicates (typically >1000)
-#' - The jackknife values are properly computed
+#' \itemize{
+#'   \item The bootstrap samples are independent
+#'   \item The statistic of interest is smooth (continuously differentiable)
+#'   \item There are sufficient bootstrap replicates (typically >1000)
+#'   \item The jackknife values are properly computed
+#' }
 #'
 #' @examples
 #' \dontrun{
@@ -60,37 +61,37 @@
 #'
 #' @references
 #' Efron, B. (1987). Better Bootstrap Confidence Intervals. 
-#' *Journal of the American Statistical Association*, 82(397), 171-185.
+#' \emph{Journal of the American Statistical Association}, 82(397), 171-185.
 #'
 #' DiCiccio, T. J., & Efron, B. (1996). Bootstrap confidence intervals.
-#' *Statistical Science*, 11(3), 189-212.
+#' \emph{Statistical Science}, 11(3), 189-212.
 #'
 #' @seealso 
 #' \code{\link{quantile}} for the underlying quantile computation
 #'
 #' @export
 BCa <- function(obs, data, bootSample, bootjack, level){
-R <- length(bootSample)
-b <- qnorm((sum(bootSample > obs)+sum(bootSample==obs)/2)/R)
+  R <- length(bootSample)
+  b <- qnorm((sum(bootSample > obs)+sum(bootSample==obs)/2)/R)
   
-n <- nrow(data) 
-n1 <- n-1 
-obsn <- obs*n
-pv <- i <- 0 
-while(i < n){
-  i = i+1 
-pv[i] = obsn-n1*bootjack[i]
-}
-pv<-pv[!is.na(pv)]
-
-je <- mean(pv)-pv
-a <- sum(je^3)/(6*sum(je^2))^(3/2)
-
-alpha <- (1-level)*2 
-z <- qnorm(c(alpha/2,1-alpha/2)) # Std. norm. limits
-p <- pnorm((z-b)/(1-a*(z-b))-b) # correct & convert to proportions
-
-quantile(bootSample,p=p) # ABC percentile lims.      
+  n <- nrow(data) 
+  n1 <- n-1 
+  obsn <- obs*n
+  pv <- i <- 0 
+  while(i < n){
+    i = i+1 
+    pv[i] = obsn-n1*bootjack[i]
+  }
+  pv<-pv[!is.na(pv)]
+  
+  je <- mean(pv)-pv
+  a <- sum(je^3)/(6*sum(je^2))^(3/2)
+  
+  alpha <- (1-level)*2 
+  z <- qnorm(c(alpha/2,1-alpha/2)) # Std. norm. limits
+  p <- pnorm((z-b)/(1-a*(z-b))-b) # correct & convert to proportions
+  
+  quantile(bootSample,p=p) # ABC percentile lims.      
 }
 
 
