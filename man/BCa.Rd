@@ -31,20 +31,6 @@ Computes the BCa confidence interval for a statistic using bootstrap and jackkni
 The BCa method adjusts for both bias and skewness in the bootstrap distribution and generally
 provides better coverage than standard bootstrap confidence intervals.
 }
-\details{
-The BCa method computes confidence intervals using three components:
-
-1. Bias correction (z0):
-\deqn{z_0 = \Phi^{-1}\left(\frac{\text{number of } \theta^*_b \leq \hat{\theta}}{B}\right)}{z_0 = qnorm(proportion of bootstrap samples <= observed value)}
-where B is the number of bootstrap replicates and \eqn{\theta^*_b}{theta*_b} represents the b-th bootstrap replicate.
-
-2. Acceleration (a):
-\deqn{a = \frac{\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^3}{6[\sum_{i=1}^n (\bar{\theta}_{(\cdot)} - \theta_{(i)})^2]^{3/2}}}{a = sum((theta-bar - theta_i)^3) / (6 * [sum((theta-bar - theta_i)^2)]^(3/2))}
-where \eqn{\theta_{(i)}}{theta_i} are the jackknife values.
-
-3. The confidence limits are then computed as:
-\deqn{\alpha_{1,2} = \Phi\left(z_0 + \frac{z_0 \pm z_{\alpha}}{1 - a(z_0 \pm z_{\alpha})}\right)}{alpha_(1,2) = Phi(z_0 + (z_0 +/- z_alpha)/(1 - a*(z_0 +/- z_alpha)))}
-}
 \section{Warning}{
 
 The function assumes that:

@@ -5,4 +5,5 @@
 cache/
 bmd.Rproj
 inst/doc
+inst/dev
 example_extracts/
