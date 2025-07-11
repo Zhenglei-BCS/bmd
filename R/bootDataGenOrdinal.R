@@ -132,7 +132,12 @@
 #' }
 bootDataGenOrdinal <- function(object, R = 500, bootType = c("nonparametric", "parametric", "model", "hierarchical")){
   bootType <- match.arg(bootType)
-  
+  ## avoiding global binding of variables issues
+  variable <- NULL
+  row.num <- NULL
+  value <- NULL
+  row.orig <- NULL
+  rm(list=c("variable", "row.num", "value", "row.orig"))
   if(!requireNamespace("reshape2")){
     stop('package "reshape2" must be installed to use bootstrapping with ordinal dose-response model')
   }
@@ -214,6 +219,8 @@ bootDataGenOrdinal <- function(object, R = 500, bootType = c("nonparametric", "p
     } 
     
     resample_fun <- function(levels, dose, weights, blocks, data){
+      name <- NULL
+      rm(list("name"))
       data %>%
         dplyr::mutate(row.orig = 1:n()) %>% 
         dplyr::group_by(.data[[dose]]) %>% 

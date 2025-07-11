@@ -16,3 +16,4 @@
 #' @name bmd-package
 #' @aliases bmd-package
 "_PACKAGE"
+

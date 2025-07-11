@@ -126,6 +126,12 @@ qplotDrc <- function(x, add = FALSE, level = NULL, type = c("average", "all", "b
                       normal = FALSE, normRef = 1, confidence.level = 0.95){
   object <- x
   type <- match.arg(type)
+  ### Avoiding global variable binding problems
+  normalizeLU <- NULL
+  Lower <- NULL
+  Upper <- NULL
+  y <- NULL
+  rm(list=(c("normalizeLU", "Lower", "Upper","y")))
   
   ## Determining logarithmic scales
   if ((xtrans == "log") || (xtrans == "pseudo_log"))
@@ -396,4 +402,10 @@ qplotDrc <- function(x, add = FALSE, level = NULL, type = c("average", "all", "b
       curveLayer = curveLayer,
       obsLayer = obsLayer)
   }
+}
+
+
+getLU <- function(object){
+  ## using the drc internal function
+  eval(parse(text = "drc:::getLU(object))"))
 }

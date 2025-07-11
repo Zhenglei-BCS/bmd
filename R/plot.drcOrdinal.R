@@ -13,7 +13,12 @@ plot.drcOrdinal <- function(x, ...){
   dots <- list(...)
   col_pal  <- dots$col_pal
   xlim <- dots$xlim
-  
+  ## avoiding global binding of variables issues
+  name <- NULL
+  value <- NULL
+  dose <- NULL
+  prop <- NULL
+  rm(list=c("name", "value", "dose", "prop"))
   if(!requireNamespace("scales")){
     stop('package "scales" must be installed to plot drcOrdinal object')
   }
@@ -30,8 +35,8 @@ plot.drcOrdinal <- function(x, ...){
   
   plotData <- tidyr::pivot_longer(object$data, cols = object$levels) %>% #-c(object$dose, object$weights)) %>% 
     dplyr::mutate(dose = eval(parse(text=object$dose)),
-           cat = factor(name, levels = object$levels),
-           prop = value/eval(parse(text=object$weights)))
+                  cat = factor(name, levels = object$levels),
+                  prop = value/eval(parse(text=object$weights)))
   
   plot <- ggplot2::ggplot(plotData) +
     ggplot2::geom_col(aes(x = dose, y = prop, fill = cat), alpha = 0.5) +

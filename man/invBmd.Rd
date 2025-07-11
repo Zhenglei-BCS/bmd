@@ -26,7 +26,7 @@ derivatives, coefficients, and data information}
 
 \item{level}{numeric; Confidence level for BMD confidence intervals (default: 0.9)}
 
-\item{slope}{character; Direction of dose-response relationship, either 
+\item{slope}{character; Direction of dose-response relationship, either
 "increasing" or "decreasing"}
 
 \item{backgType}{character; Type of background response calculation. Options include:
@@ -41,13 +41,13 @@ Default: NA}
 
 \item{def}{character; BMD definition type. Options include:
 \itemize{
-  \item "additional"/"added": Additional risk over background
-  \item "excess": Excess risk over background  
-  \item "relative": Relative change from background
-  \item "extra": Extra risk (between background and maximum)
-  \item "hybridAdd": Hybrid additional risk using statistical criteria
-  \item "hybridExc": Hybrid excess risk using statistical criteria
-  \item "point": Point estimate (not supported for inverse regression)
+\item "additional"/"added": Additional risk over background
+\item "excess": Excess risk over background
+\item "relative": Relative change from background
+\item "extra": Extra risk (between background and maximum)
+\item "hybridAdd": Hybrid additional risk using statistical criteria
+\item "hybridExc": Hybrid excess risk using statistical criteria
+\item "point": Point estimate (not supported for inverse regression)
 }}
 
 \item{useSD}{numeric; Standard deviation value used in hybrid definitions}
@@ -58,17 +58,17 @@ for robust standard errors (default: FALSE)}
 \value{
 A matrix with 1 row and 3 columns:
 \itemize{
-  \item \strong{BMD}: Benchmark dose estimate
-  \item \strong{BMDL}: Lower confidence limit for BMD
-  \item \strong{BMDU}: Upper confidence limit for BMD
+\item \strong{BMD}: Benchmark dose estimate
+\item \strong{BMDL}: Lower confidence limit for BMD
+\item \strong{BMDU}: Upper confidence limit for BMD
 }
 
 If root finding fails for confidence limits, BMDL is set to 0 and BMDU to Inf.
 }
 \description{
-Helper function for `bmd` that calculates Benchmark Dose (BMD) and confidence 
-intervals using inverse regression. This function handles multiple BMD definitions 
-and background response types by dynamically modifying the dose-response function 
+Helper function for \code{bmd} that calculates Benchmark Dose (BMD) and confidence
+intervals using inverse regression. This function handles multiple BMD definitions
+and background response types by dynamically modifying the dose-response function
 and its derivatives to solve for the dose corresponding to a specified benchmark response.
 }
 \details{
@@ -76,42 +76,42 @@ The function implements inverse regression by solving:
 \deqn{f(BMD) = BMR}{f(BMD) = BMR}
 where f is the transformed dose-response function based on the specified definition.
 
-**BMD Definitions:**
+\strong{BMD Definitions:}
 
-**Additional Risk:** \deqn{f(x) = |f_0(0) - f_0(x)|}{f(x) = |f_0(0) - f_0(x)|}
+\strong{Additional Risk:} \deqn{f(x) = |f_0(0) - f_0(x)|}{f(x) = |f_0(0) - f_0(x)|}
 
-**Excess Risk:** \deqn{f(x) = \frac{|f_0(0) - f_0(x)|}{f_0(0)}}{f(x) = |f_0(0) - f_0(x)|/f_0(0)} (decreasing)
+\strong{Excess Risk:} \deqn{f(x) = \frac{|f_0(0) - f_0(x)|}{f_0(0)}}{f(x) = |f_0(0) - f_0(x)|/f_0(0)} (decreasing)
 \deqn{f(x) = \frac{f_0(x) - f_0(0)}{1 - f_0(0)}}{f(x) = (f_0(x) - f_0(0))/(1 - f_0(0))} (increasing)
 
-**Relative Risk:** \deqn{f(x) = \frac{|f_0(0) - f_0(x)|}{f_0(0)}}{f(x) = |f_0(0) - f_0(x)|/f_0(0)}
+\strong{Relative Risk:} \deqn{f(x) = \frac{|f_0(0) - f_0(x)|}{f_0(0)}}{f(x) = |f_0(0) - f_0(x)|/f_0(0)}
 
-**Extra Risk:** \deqn{f(x) = \frac{|f_0(0) - f_0(x)|}{|f_0(0) - f_0(\infty)|}}{f(x) = |f_0(0) - f_0(x)|/|f_0(0) - f_0(infinity)|}
+\strong{Extra Risk:} \deqn{f(x) = \frac{|f_0(0) - f_0(x)|}{|f_0(0) - f_0(\infty)|}}{f(x) = |f_0(0) - f_0(x)|/|f_0(0) - f_0(infinity)|}
 
-**Hybrid Definitions:** Use normal distribution probabilities:
+\strong{Hybrid Definitions:} Use normal distribution probabilities:
 \deqn{f(x) = \Phi\left(\frac{f_0(0) - k \cdot SD - f_0(x)}{SD}\right) - (1-\Phi(k))}{f(x) = Phi((f_0(0) - k*SD - f_0(x))/SD) - (1-Phi(k))}
 where k is the number of standard deviations (default: 2).
 }
 \note{
-This is an internal helper function for BMD calculation. It assumes the input 
-object has the standard structure from dose-response model fitting, including 
-components like `fct`, `dataList`, `type`, etc.
+This is an internal helper function for BMD calculation. It assumes the input
+object has the standard structure from dose-response model fitting, including
+components like \code{fct}, \code{dataList}, \code{type}, etc.
 
-**Important considerations:**
+\strong{Important considerations:}
 \itemize{
-  \item The search range is limited to [0, extFactor × max(dose)]
-  \item Hybrid definitions require careful specification of useSD and backg
-  \item Function modification uses string manipulation and may be sensitive to model structure
+\item The search range is limited to \verb{[0, extFactor × max(dose)]}
+\item Hybrid definitions require careful specification of useSD and backg
+\item Function modification uses string manipulation and may be sensitive to model structure
 }
 }
 \section{Function Modification}{
 
-The function dynamically modifies the model's derivative function to account 
+The function dynamically modifies the model's derivative function to account
 for different BMD definitions by:
 \itemize{
-  \item Parsing the derivative function body
-  \item Adding appropriate transformation terms
-  \item Handling parameter indexing for fixed vs. estimated parameters
-  \item Supporting both 4-parameter and 5-parameter models
+\item Parsing the derivative function body
+\item Adding appropriate transformation terms
+\item Handling parameter indexing for fixed vs. estimated parameters
+\item Supporting both 4-parameter and 5-parameter models
 }
 }
 
@@ -121,7 +121,7 @@ Confidence intervals are calculated using the delta method:
 \deqn{CI = BMD \pm t_{\alpha/2} \sqrt{h(BMD)^T \Sigma h(BMD)}}{CI = BMD +/- t * sqrt(h(BMD)' * Sigma * h(BMD))}
 where h(BMD) is the gradient vector and Σ is the variance-covariance matrix.
 
-For continuous data, t-distribution quantiles are used; for other data types, 
+For continuous data, t-distribution quantiles are used; for other data types,
 normal distribution quantiles are used.
 }
 
@@ -129,10 +129,10 @@ normal distribution quantiles are used.
 
 The function includes several error checks:
 \itemize{
-  \item Stops if "point" definition is used (not supported)
-  \item Stops if hybrid definitions are used without appropriate backgType
-  \item Stops if no background value is provided when required
-  \item Stops if no solution exists for the specified BMR
+\item Stops if "point" definition is used (not supported)
+\item Stops if hybrid definitions are used without appropriate backgType
+\item Stops if no background value is provided when required
+\item Stops if no solution exists for the specified BMR
 }
 }
 

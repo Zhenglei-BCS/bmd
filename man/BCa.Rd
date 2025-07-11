@@ -11,37 +11,29 @@ BCa(obs, data, bootSample, bootjack, level)
 
 \item{data}{data.frame or matrix; The original dataset from which bootstrap samples are drawn}
 
-\item{bootSample}{numeric vector; Bootstrap replicates of the statistic. Must be of length R 
+\item{bootSample}{numeric vector; Bootstrap replicates of the statistic. Must be of length R
 where R is the number of bootstrap replicates}
 
-\item{bootjack}{numeric vector; Jackknife replicates of the statistic. Must be of length n 
+\item{bootjack}{numeric vector; Jackknife replicates of the statistic. Must be of length n
 where n is the number of observations in data}
 
-\item{level}{numeric; Confidence level between 0 and 1 (e.g., 0.95 for 95% confidence interval)}
+\item{level}{numeric; Confidence level between 0 and 1 (e.g., 0.95 for 95\% confidence interval)}
 }
 \value{
 A numeric vector of length 2 containing:
 \itemize{
-  \item lower: The lower confidence limit
-  \item upper: The upper confidence limit
+\item lower: The lower confidence limit
+\item upper: The upper confidence limit
 }
 }
 \description{
-Computes the BCa confidence interval for a statistic using bootstrap and jackknife estimates.
+This function calculates the BCa confidence interval for a given statistic using bootstrap and jackknife estimates.
+}
+\details{
+It computes the BCa confidence interval for a statistic using bootstrap and jackknife estimates.
 The BCa method adjusts for both bias and skewness in the bootstrap distribution and generally
 provides better coverage than standard bootstrap confidence intervals.
 }
-\section{Warning}{
-
-The function assumes that:
-\itemize{
-  \item The bootstrap samples are independent
-  \item The statistic of interest is smooth (continuously differentiable)
-  \item There are sufficient bootstrap replicates (typically >1000)
-  \item The jackknife values are properly computed
-}
-}
-
 \examples{
 \dontrun{
 # Example with mean as the statistic
@@ -62,12 +54,9 @@ BCa(obs_mean, data, boot_means, jack_means, 0.95)
 
 }
 \references{
-Efron, B. (1987). Better Bootstrap Confidence Intervals. 
+Efron, B. (1987). Better Bootstrap Confidence Intervals.
 \emph{Journal of the American Statistical Association}, 82(397), 171-185.
 
 DiCiccio, T. J., & Efron, B. (1996). Bootstrap confidence intervals.
 \emph{Statistical Science}, 11(3), 189-212.
-}
-\seealso{
-\code{\link{quantile}} for the underlying quantile computation
 }

@@ -29,7 +29,6 @@
 #' fitting the model. Default value is 10^(-16)
 #' @return An object of (S3) class 'drcOrdinal'.
 #' @author Signe M. Jensen and Jens Riis Baalkilde
-#' @references # ADD REFERENCES
 #' @keywords models nonlinear
 #' @examples
 #' 

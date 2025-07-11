@@ -1,6 +1,10 @@
 #' Calculate BCa (Bias-Corrected and Accelerated) Bootstrap Confidence Interval
 #'
-#' Computes the BCa confidence interval for a statistic using bootstrap and jackknife estimates.
+#' @description
+#' This function calculates the BCa confidence interval for a given statistic using bootstrap and jackknife estimates.
+#' 
+#' @details
+#' It computes the BCa confidence interval for a statistic using bootstrap and jackknife estimates.
 #' The BCa method adjusts for both bias and skewness in the bootstrap distribution and generally
 #' provides better coverage than standard bootstrap confidence intervals.
 #'
@@ -18,17 +22,8 @@
 #'   \item upper: The upper confidence limit
 #' }
 #'
-#' @section Warning:
-#' The function assumes that:
-#' \itemize{
-#'   \item The bootstrap samples are independent
-#'   \item The statistic of interest is smooth (continuously differentiable)
-#'   \item There are sufficient bootstrap replicates (typically >1000)
-#'   \item The jackknife values are properly computed
-#' }
 #'
-#' @examples
-#' \dontrun{
+#' @examples \dontrun{
 #' # Example with mean as the statistic
 #' data <- rnorm(100)
 #' obs_mean <- mean(data)
@@ -47,13 +42,10 @@
 #'
 #' @references
 #' Efron, B. (1987). Better Bootstrap Confidence Intervals. 
-#' \emph{Journal of the American Statistical Association}, 82(397), 171-185.
+#' _Journal of the American Statistical Association_, 82(397), 171-185.
 #'
 #' DiCiccio, T. J., & Efron, B. (1996). Bootstrap confidence intervals.
-#' \emph{Statistical Science}, 11(3), 189-212.
-#'
-#' @seealso 
-#' \code{\link{quantile}} for the underlying quantile computation
+#' _Statistical Science_, 11(3), 189-212.
 #'
 #' @export
 BCa <- function(obs, data, bootSample, bootjack, level){
@@ -79,5 +71,12 @@ BCa <- function(obs, data, bootSample, bootjack, level){
   
   quantile(bootSample,p=p) # ABC percentile lims.      
 }
+
+
+
+
+
+
+
 
 

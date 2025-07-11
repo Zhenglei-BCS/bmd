@@ -100,7 +100,7 @@ averaging from a user-defined list of ordinal dose-response model fits
 }
 \details{
 The aim to provide an R package calculating the benchmark dose (BMD) and the
-lower limit of the corresponding 95\% confidence interval (BMDL) for
+lower limit of the corresponding 95\\% confidence interval (BMDL) for
 continuous, quantal, quantal and ordinal dose-response data for a range of
 dose-response models based on the available definitions of the benchmark
 dose concepts.

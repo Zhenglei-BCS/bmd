@@ -17,7 +17,7 @@
 #' @param searchInterval character or numeric; Search interval for root finding. 
 #'        If "dataBased" (default), uses data range with small lower bound adjustment. 
 #'        If numeric, should be a vector of length 2 for single curves, or a matrix 
-#'        with 2 columns for multiple curves specifying [lower, upper] bounds
+#'        with 2 columns for multiple curves specifying `[lower, upper]` bounds
 #'
 #' @details
 #' The function handles two scenarios:

@@ -95,7 +95,7 @@
 #' 
 #' **Important considerations:**
 #' \itemize{
-#'   \item The search range is limited to [0, extFactor × max(dose)]
+#'   \item The search range is limited to `[0, extFactor × max(dose)]`
 #'   \item Hybrid definitions require careful specification of useSD and backg
 #'   \item Function modification uses string manipulation and may be sensitive to model structure
 #' }
@@ -695,7 +695,7 @@ invBmd <- function(object, bmr, level=0.9, slope, backgType="modelBased",
   #  g1<-function(x){as.numeric(g(x, matrix(coef(object), 1, length(coef(object)))))}
   if(sandwich.vcov){
     j1<-function(x){sqrt(as.vector(h(x, matrix(coef(object), 1, length(coef(object)))))%*%
-                           sandwich(object)%*%
+                           sandwich::sandwich(object)%*%
                            as.vector(h(x, matrix(coef(object), 1, length(coef(object))))))}
   } else{
     j1<-function(x){sqrt(as.vector(h(x, matrix(coef(object), 1, length(coef(object)))))%*%

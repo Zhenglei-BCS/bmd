@@ -57,7 +57,8 @@
 #' @export
 drmMMRE <- function(formula, exp_id, data, fct, type = c("continuous", "binomial")){
   call_expr <- match.call()
-  
+  Estimate <- NULL # to avoid global binding of variables issues
+  rm(list="Estimate")
   # assertions
   if (!inherits(formula, "formula")) {
     stop("Argument 'formula' must be a formula.")

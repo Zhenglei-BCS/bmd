@@ -7,23 +7,23 @@
 \method{BIC}{drcOrdinal}(object, ...)
 }
 \arguments{
-\item{object}{An object of class "drcOrdinal" containing fitted ordinal 
+\item{object}{An object of class "drcOrdinal" containing fitted ordinal
 dose-response models}
 
 \item{...}{Additional arguments passed to the method. Currently supports:
 \itemize{
-  \item \code{epsilon}: Small positive value to avoid log(0) in likelihood 
-        calculations (default: 1e-16)
+\item \code{epsilon}: Small positive value to avoid log(0) in likelihood
+calculations (default: 1e-16)
 }}
 }
 \value{
 A numeric value representing the BIC of the fitted ordinal dose-response model.
-        Lower values indicate better model fit when comparing models.
+Lower values indicate better model fit when comparing models.
 }
 \description{
-S3 method to calculate the Bayesian Information Criterion (BIC) for fitted 
-ordinal dose-response models. This method extends the generic `BIC()` function 
-to handle `drcOrdinal` objects which contain multiple fitted dose-response models 
+S3 method to calculate the Bayesian Information Criterion (BIC) for fitted
+ordinal dose-response models. This method extends the generic \code{BIC()} function
+to handle \code{drcOrdinal} objects which contain multiple fitted dose-response models
 for different response categories.
 }
 \details{
@@ -31,33 +31,33 @@ The BIC is calculated using the standard formula:
 \deqn{BIC = k \log(n) - 2 \log(L)}{BIC = k * log(n) - 2 * log(L)}
 where:
 \itemize{
-  \item \eqn{k}{k} is the total number of parameters across all models in the ordinal fit
-  \item \eqn{n}{n} is the total number of observations (sum of weights)
-  \item \eqn{L}{L} is the likelihood of the fitted model
+\item \eqn{k}{k} is the total number of parameters across all models in the ordinal fit
+\item \eqn{n}{n} is the total number of observations (sum of weights)
+\item \eqn{L}{L} is the likelihood of the fitted model
 }
 
-For ordinal dose-response models, the total number of parameters is the sum 
-of parameters from all individual models in the `drmList` component, and the 
+For ordinal dose-response models, the total number of parameters is the sum
+of parameters from all individual models in the \code{drmList} component, and the
 sample size is calculated as the sum of weights in the data.
 
-The `epsilon` parameter is used in the `logLik()` calculation to prevent 
+The \code{epsilon} parameter is used in the \code{logLik()} calculation to prevent
 numerical issues when probabilities approach zero.
 }
 \note{
-This method assumes that the `drcOrdinal` object contains:
+This method assumes that the \code{drcOrdinal} object contains:
 \itemize{
-  \item A `drmList` component with fitted dose-response models
-  \item A `data` component with the original data including weights
-  \item A `weights` component specifying the column name for observation weights
+\item A \code{drmList} component with fitted dose-response models
+\item A \code{data} component with the original data including weights
+\item A \code{weights} component specifying the column name for observation weights
 }
 }
 \section{Model Comparison}{
 
 BIC penalizes model complexity more heavily than AIC, making it useful for:
 \itemize{
-  \item Comparing ordinal dose-response models with different numbers of parameters
-  \item Model selection in situations where simpler models are preferred
-  \item Avoiding overfitting in dose-response modeling
+\item Comparing ordinal dose-response models with different numbers of parameters
+\item Model selection in situations where simpler models are preferred
+\item Avoiding overfitting in dose-response modeling
 }
 }
 
