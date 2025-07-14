@@ -16,7 +16,7 @@ plot.drcHetVar <- function(x, ...){
     gridsize <- 300
   }
   sigma0 <- NULL ## avoiding global binding issues
-  rm(list("sigma0"))
+  rm(list="sigma0")
   # Add assertion of gridExtra
   if(!requireNamespace("gridExtra")){
     stop('package "gridExtra" must be installed to plot drcHetVar object')
